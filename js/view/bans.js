@@ -17,7 +17,7 @@ export function renderBans(rerender) {
 
   var bl = document.createElement("p");
   bl.className = "rp-text";
-  bl.textContent = "Se publica entera en los relays como un evento kind 39000 firmado con tu clave. Los visitantes del foro la leen y dejan de mostrar a los baneados al instante.";
+  bl.textContent = "Los baneados forman parte del estado de roles: se publica todo en los relays como un evento kind 39001 firmado con tu clave. Los visitantes del foro la leen y dejan de mostrar a los baneados al instante.";
   wrap.appendChild(bl);
 
   var counts = document.createElement("p");

@@ -1483,13 +1483,27 @@ textarea::placeholder {
 .ban-chip { margin-left: auto; background: var(--accent); color: #fff; font-size: 11px; padding: 1px 6px; border-radius: 4px; }
 
 /* tabla de usuarios */
-.add-ban { display: flex; gap: 8px; margin: 8px 0 12px; max-width: 520px; }
+.add-ban { display: flex; gap: 8px; margin: 8px 0 12px; max-width: 720px; }
 .add-ban input { flex: 1; }
 .user-table { width: 100%; border-collapse: collapse; background: var(--bg-alt); border-radius: 8px; overflow: hidden; font-size: 14px; }
 .user-table th, .user-table td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
 .user-table th { background: var(--bg-toolbar); color: var(--text-side); }
 .user-table code { color: var(--cyan); font-size: 12px; }
 .row-banned { background: rgba(247, 118, 142, 0.08); }
+.role-select {
+  padding: 3px 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+.role-select:hover { border-color: var(--accent); }
+.btn2.block { border-color: var(--green); color: var(--green); }
+.btn2.block:hover { background: var(--green); color: #16161e; }
+.upd-line { margin: 6px 0 10px; }
+.pub-row { margin-top: 14px; text-align: right; }
+.pub-row .btn2 { width: auto; min-width: 200px; }
 
 /* lista de baneos */
 .bans-view h4 { margin-top: 18px; }

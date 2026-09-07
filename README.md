@@ -5,8 +5,10 @@ imageboard [ForosRaiz](https://eynorxix.github.io/tox-forum/): estadísticas en
 vivo de usuarios y posts (leídos de los relays Nostr) y **baneo de usuarios**.
 
 - **Solo el admin entra**: se autentica con su `nsec`.
-- **Los baneos son eventos Nostr firmados** (kind `39000`, `#d = forosraiz-banlist-v1`).
-- Los visitantes del foro leen ese evento y dejan de ver a los baneados al instante.
+- **Los roles y baneos son eventos Nostr firmados** (kind `39001`, `#d = forosraiz-roles-v1`;
+  retrocompatible con la lista antigua kind `39000`).
+- Los colaboradores/admins aprobados aparecen en el panel lateral del foro y los visitantes del
+  foro dejan de ver a los baneados al instante.
 
 ## Arranque local
 
@@ -26,17 +28,16 @@ python3 -m http.server 8123        # dentro de este repo
 
 ```bash
 git init && git add -A && git commit -m "panel de control ForosRaiz"
-git remote add origin https://github.com/eynorxix/Admin_forum.git
+git remote add origin https://github.com/eynorxix/a-hfv-eiu-uiqwg7850.git
 git push -u origin main
 ```
 
 En GitHub → Settings → Pages → Source = Deploy from a branch / `main` / `(root)`.
-URL: `https://eynorxix.github.io/Admin_forum/`.
+URL: `https://eynorxix.github.io/a-hfv-eiu-uiqwg7850/`.
 
 ## Documentación
 
 - [`CONTROL_PANEL.md`](CONTROL_PANEL.md): contrato técnico completo (kinds,
   verificación, flujo de baneo, limitaciones).
 - [`AGENTS.md`](AGENTS.md): instrucciones de mantenimiento para agentes de
-  código (opencode).# a-hfv-eiu-uiqwg7850
-# a-hfv-eiu-uiqwg7850
+  código (opencode).

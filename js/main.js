@@ -4,6 +4,7 @@ import { toast, copyText } from "./utils/dom.js";
 import { esc } from "./utils/text.js";
 import * as st from "./store/state.js";
 import * as mod from "./store/moderation.js";
+import * as roles from "./store/roles.js";
 import { queryEvents, parsePostEvents } from "./utils/relays.js";
 import { admin } from "./store/state.js";
 import { POST_KIND, ADMIN_NPUB, PAGE } from "./config.js";
@@ -38,6 +39,8 @@ function bootData() {
   st.loadCachedNames();
   mod.refreshPublished();
   mod.subscribePublished();
+  roles.queryRegistrations();
+  roles.subscribeRegistrations();
   dashboard.initDashboard(rerender);
   queryEvents({ kinds: [POST_KIND], limit: 300 }, { maxWait: 9000 })
     .then(parsePostEvents)
@@ -168,6 +171,7 @@ function renderPanel() {
   logout.addEventListener("click", function () {
     dashboard.stopDashboard();
     mod.closeLive();
+    roles.closeLive();
     st.logout();
     currentTab = "panel";
     render();

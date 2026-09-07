@@ -103,6 +103,12 @@ function doPublish(draft) {
   }).catch(function () { return 0; });
 }
 
+/* publica un draft ya construido y devuelve cuantos relays confirmaron.
+   Se usa para publicar cualquier kind (roles, baneos, etc.) con la clave admin. */
+export function doPublishLocal(draft) {
+  return doPublish(draft);
+}
+
 /* publica la LISTA COMPLETA de baneados (kind 39000, kind addressable:
    cada publicacion reemplaza a la anterior para el mismo admin+d-tag). */
 export function publishBanList(pubHexes) {
