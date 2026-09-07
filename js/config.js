@@ -5,7 +5,7 @@
    Si lo dejas vacio, el panel funciona en modo "provisional": usa la
    clave que introduzcas, pero el foro no confiara en sus baneos. */
 
-export var ADMIN_NPUB = "npub12us3dz6l88e9v3j6qhcpru9wp0jh2tk02zrd2uqcvkyezf257jrq2cyel2";   /* ejemplo: "npub1qf0..." */
+export var ADMIN_NPUB = "npub1ehuggfkcre09tw8xcvkvg8mq69569a4fxyapxfcdtm6zq5pnnlrqzpw33z";
 
 export var PAGE = "https://eynorxix.github.io/Admin_forum/";
 
