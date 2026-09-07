@@ -38,4 +38,4 @@ URL: `https://eynorxix.github.io/Admin_forum/`.
 - [`CONTROL_PANEL.md`](CONTROL_PANEL.md): contrato técnico completo (kinds,
   verificación, flujo de baneo, limitaciones).
 - [`AGENTS.md`](AGENTS.md): instrucciones de mantenimiento para agentes de
-  código (opencode).
+  código (opencode).# a-hfv-eiu-uiqwg7850
