@@ -39,3 +39,4 @@ URL: `https://eynorxix.github.io/Admin_forum/`.
   verificación, flujo de baneo, limitaciones).
 - [`AGENTS.md`](AGENTS.md): instrucciones de mantenimiento para agentes de
   código (opencode).# a-hfv-eiu-uiqwg7850
+# a-hfv-eiu-uiqwg7850
