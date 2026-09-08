@@ -7,7 +7,7 @@
    quienes se crearon cuentas. */
 import { ROLE_KIND, ROLE_DTAG, REG_DTAG } from "../config.js";
 import { getNip19 } from "../utils/nostr-lib.js";
-import { queryEvents, subscribeEvents, doPublishLocal } from "../utils/relays.js";
+import { queryEvents, subscribeEvents, doPublishWithRetry } from "../utils/relays.js";
 import { admin } from "./state.js";
 
 var LOCAL_KEY = "forosraiz_admin_roles";
@@ -189,8 +189,11 @@ export function closeLive() {
   if (regCloser) { try { regCloser.close(); } catch (e) {} regCloser = null; }
 }
 
-/* publica la lista completa actual (kind 39001). Devuelve Promise<count de relays> */
-export function publishNow() {
+/* publica la lista completa actual (kind 39001) con REINTENTOS automaticos:
+   un solo clic, y si los relays no confirman al instante vuelve a intentar
+   hasta lograrlo (o agotar los intentos). Devuelve Promise<count de relays>.
+   onProgress(tries, attempts, ok) se informa tras cada intento para la UI. */
+export function publishNow(onProgress) {
   var now = Math.floor(Date.now() / 1000);
   var list = currentList();
   var tags = [["d", ROLE_DTAG]];
@@ -199,11 +202,14 @@ export function publishNow() {
     tags.push(["p", hex, "role", r.role, "status", r.status]);
   });
   var content = JSON.stringify({ v: 1, updated_at: now });
-  return doPublishLocal({ kind: ROLE_KIND, created_at: now, tags: tags, content: content })
-    .then(function (ok) {
-      if (ok > 0) refreshPublished();
-      return ok;
-    });
+  return doPublishWithRetry(
+    { kind: ROLE_KIND, created_at: now, tags: tags, content: content },
+    { attempts: 6, minRelays: 1, delayMs: 1500 },
+    onProgress
+  ).then(function (ok) {
+    if (ok > 0) refreshPublished();
+    return ok;
+  });
 }
 
 /* admin efectivo: la clave con la que se entro al panel */

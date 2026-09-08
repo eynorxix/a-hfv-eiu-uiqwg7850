@@ -32,14 +32,17 @@ export function renderBans(rerender) {
   publishBtn.addEventListener("click", function () {
     publishBtn.disabled = true;
     publishBtn.textContent = "Publicando\u2026";
-    publishNow().then(function (ok) {
+    publishNow(function (tries, attempts) {
+      publishBtn.textContent = "Publicando\u2026 intento " + tries + "/" + attempts;
+    }).then(function (ok) {
       publishBtn.disabled = false;
+      publishBtn.textContent = "Publicar lista en relays";
       if (ok >= RELAYS.length / 2) {
         toast("Lista publicada en " + ok + "/" + RELAYS.length + " relays");
       } else if (ok > 0) {
         toast("Solo " + ok + "/" + RELAYS.length + " relays la recibieron", "warn");
       } else {
-        toast("Sin conexion a relays: revisa tu clave activa", "err");
+        toast("No se pudo publicar tras varios intentos: revisa tu clave activa", "err");
       }
       rerender();
     });

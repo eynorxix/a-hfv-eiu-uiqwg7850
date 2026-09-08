@@ -181,11 +181,13 @@ export function renderUsers(rerender) {
   pubBtn.addEventListener("click", function () {
     pubBtn.disabled = true;
     pubBtn.textContent = "Publicando\u2026";
-    roles.publishNow().then(function (ok) {
+    roles.publishNow(function (tries, attempts) {
+      pubBtn.textContent = "Publicando\u2026 intento " + tries + "/" + attempts;
+    }).then(function (ok) {
       pubBtn.disabled = false;
       pubBtn.textContent = "Publicar roles en relays";
       if (ok > 0) toast("Roles publicados en " + ok + " relays");
-      else toast("Sin conexion a relays: revisa tu clave activa", "err");
+      else toast("No se pudo publicar tras varios intentos: revisa tu clave activa", "err");
       rerender();
     });
   });

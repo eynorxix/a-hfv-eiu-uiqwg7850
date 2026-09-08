@@ -109,6 +109,30 @@ export function doPublishLocal(draft) {
   return doPublish(draft);
 }
 
+/* publica y REINTENTA solo hasta que al menos minRelays relays confirmen (o
+   se agoten los attempts). Devuelve el mejor recuento logrado.
+   onProgress(tries, attempts, ok) se llama tras cada intento. */
+export function doPublishWithRetry(draft, opts, onProgress) {
+  opts = opts || {};
+  var attempts = opts.attempts || 5;
+  var minRelays = (opts.minRelays == null) ? 1 : opts.minRelays;
+  var delayMs = opts.delayMs || 1500;
+  var best = 0;
+  var tries = 0;
+  function attempt() {
+    tries++;
+    return doPublish(draft).then(function (ok) {
+      if (ok > best) best = ok;
+      if (onProgress) onProgress(tries, attempts, ok);
+      if (best >= minRelays || tries >= attempts) return best;
+      return new Promise(function (res) {
+        setTimeout(function () { res(attempt()); }, delayMs);
+      });
+    });
+  }
+  return attempt();
+}
+
 /* publica la LISTA COMPLETA de baneados (kind 39000, kind addressable:
    cada publicacion reemplaza a la anterior para el mismo admin+d-tag). */
 export function publishBanList(pubHexes) {
